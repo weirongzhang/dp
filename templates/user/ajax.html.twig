@@ -1,0 +1,6 @@
+{%  extends('base.html.twig') %}
+{% block body %}
+    <h1>Search by department ajax</h1>
+    {{ form(form,{'attr':{'class':'form-inline wrapper'}}) }}
+    <table class="table table-striped table-bordered" id="tblResults" width="100%"></table>
+{% endblock %}

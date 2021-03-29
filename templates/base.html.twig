@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/main.css">
+    {% endblock %}
+
+
+</head>
+<body>
+
+<!--[if lte IE 9]>
+<p>You are using an <strong>outdated</strong> browser. Please upgrade your browser before visiting this site.</p>
+<![endif]-->
+
+<div class="wrapper">
+    <!-- Sidebar -->
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Docupet</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>Welcome {{ app.user.email }}</p>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li {% if app.request.pathinfo is same as ('\/user\/') %} class="active" {% endif %}>
+                        <a href="/user">User List</a>
+                    </li>
+                    <li {% if app.request.pathinfo is same as ('\/user\/') %} class="active" {% endif %}>
+                        <a href="/user/1/department">Search List with Paginator</a>
+                    </li>
+
+                    <li {% if app.request.pathinfo is same as ('\/user\/') %} class="active" {% endif %}>
+                        <a href="/user/1/ajax">Search List with Ajax</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_USER') %}
+
+                    <li {% if app.request.pathinfo is same as ('/department') %} class="active" {% endif %}>
+                        <a href="/department">Department</a>
+                    </li>
+                {% endif %}
+                <!--<li >
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Other</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Other 1</a>
+                        </li>
+
+                    </ul>
+                </li>-->
+
+                <li>
+                    <a href="/logout">Logout</a>
+                </li>
+
+
+            </ul>
+        </nav>
+    {% endif %}
+    <!-- Page Content -->
+    <div id="content">
+        {% block body %}{% endblock %}
+    </div>
+
+</div>
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+
+{% endblock %}
+
+</body>
+
+<!--end of testing-->
+
+</html>
